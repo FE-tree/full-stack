@@ -1,0 +1,33 @@
+// mobile scss
+
+.mobile .container {
+    width: 100%;
+    min-height: 100vh;
+    .head {
+        display: block;
+        text-align: center;
+        .left {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+    .submit {
+        width: 150px;
+    }
+    .main {
+        padding-top: 1rem;
+        .list2 {
+            &-item {
+                width: 25%;
+                .pic {
+                    height: 20vw;
+                    background: linear-gradient(to right bottom,#ccc,#09f);
+                    margin: 0 auto;
+                }
+                p {
+                    font-size: .9rem;
+                }
+            }
+        }
+    }
+}

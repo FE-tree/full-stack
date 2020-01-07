@@ -1,0 +1,154 @@
+$color: #5fbae9;
+
+.home {
+    width: 100%;
+    height: 100%;
+    .container {
+        background-color: #FCFCFC;
+    }
+    .head {
+        padding-top: 2rem;
+        width: 100%;
+        display: flex;
+        color: #666;
+        .left {
+            width: 150px;
+            text-align: center;
+            .add {
+                position: relative;
+                .icon {
+                    width: 90px;
+                    height: 90px;
+                    border: 1px solid #666;
+                    display: inline-block;
+                    position: relative;
+                    &::after, &::before {
+                        content: '';
+                        width: 70px;
+                        height: 2px;
+                        background-color: #666;
+                        position: absolute;
+                        left: 10px;
+                        top: 44px;
+                    }
+                    &::before {
+                        transform: rotate(90deg);
+                    }
+                    &:active {
+                        border-color: #999;
+                        &::after {
+                            background-color: #999;
+                        }
+                        &::before {
+                            background-color: #999;
+                        }
+                    }
+                    input {
+                        display: none;
+                    }
+                }
+            }
+        }
+        .right {
+            flex: 1;
+            .input-item {
+                padding-bottom: 1rem;
+                input {
+                    text-align: center;
+                    border: 1px solid #e9e9e9;
+                    border-radius: .3rem;
+                    outline: none;
+                    padding: .5rem .8rem;
+                    background-color: #efefef;
+                    transition: all .3s ease-in-out;
+                }
+                input[type=text] {
+                    letter-spacing: 1px;
+                }
+                input[type=text]:focus {
+                    background-color: #fff;
+                    border-bottom: 0.1rem solid $color;
+                }
+                input[type=password]:focus {
+                    background-color: #fff;
+                    border-bottom: 0.1rem solid $color;
+                }
+            }
+        }
+    }
+    .submit {
+        width: 200px;
+        height: 46px;
+        line-height: 46px;
+        margin: 0 auto;
+        text-align: center;
+        background-color: $color;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        &:active {
+            opacity: .8;
+        }
+    }
+    .main {
+        .tabs {
+            display: flex;
+            justify-content: flex-end;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            color: #666;
+            .tab {
+                border: 1px solid #999;
+                margin-right: 10px;
+                padding: 5px 15px;
+                cursor: pointer;
+                transition: all .3s;
+            }
+            .active {
+                border: 1px solid $color;
+                background-color: $color;
+                color: #fff; 
+            }
+        }
+        .list {
+            padding: 0 10px;
+            &-item {
+                padding: 8px 0;
+                border-bottom: 1px solid #eee;
+                word-break: break-all;
+                transition: all .3s;
+                p {
+                    margin: 5px 0;
+                }
+            }
+            &-active {
+                padding-left: 10px;
+                background-color: $color;
+                color: #fff;
+            }
+        }
+        .list2 {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            .list2 {
+                &-item {
+                    text-align: center;
+                    margin-top: 1rem;
+                    .pic {
+                        width: 80%;
+                        height: 20vw;
+                        // background-color: #999;
+                        background: linear-gradient(to right bottom,#ccc,#09f);
+                        margin: 0 auto;
+                        border-radius: 5px;
+                    }
+                    p {
+                        margin: 5px 0;
+                        word-break: break-all;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+// pc scss
+
+.pc .container {
+    width: 1000px;
+    min-height: 100vh;
+    margin: 0 auto;
+    .head {
+        .left {
+            width: 150px;
+        }
+        .right {
+            .input-item {
+                input {
+                    width: calc(100% - 200px);
+                }
+            }
+        }
+    }
+    .main {
+        .list2 {
+            &-item {
+                width: 20%;
+                .pic {
+                    height: 160px;
+                }
+            }
+        }
+    }
+}
