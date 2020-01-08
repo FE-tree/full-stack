@@ -4,9 +4,10 @@ import router from './router'
 
 import '../src/assets/style/normalize.css'
 
-import { Toast, Loading } from 'vant';
+import { Toast, Loading, Dialog } from 'vant';
 Vue.use(Toast)
 Vue.use(Loading)
+Vue.use(Dialog)
 
 Vue.config.productionTip = false
 

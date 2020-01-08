@@ -30,16 +30,20 @@
                 <div class="list" v-show="isList">
                     <div :class="['list-item',{'list-active':listActive==i}]" v-for="(item, i) in list" :key="i" @click="listActive=i">
                         <p>{{ item.title }}.{{ item.type }}</p>
-                        <!-- <p>{{ item.created }}</p> -->
+                        <div class="delete" @click="deleteFile(item, i)"></div>
                     </div>
                 </div>
                 <div class="list2" v-show="!isList">
                     <div class="list2-item" v-for="(item, i) in list" :key="i">
-                        <div class="pic"></div>
+                        <div class="pic">
+                            <div class="delete" @click="deleteFile(item, i)"></div>
+                        </div>
                         <p>{{ item.title }}.{{ item.type }}</p>
+                        <p>{{ item.path }}</p>
                     </div>
                 </div>
             </div>
+            <img src="http://localhost:4040/public/uploads/2020-1-7/1578382696376.jpg">
         </div>
     </div>
 </template>
@@ -127,6 +131,9 @@ export default {
                 console.log(res)
                 this.loading = false
                 this.$toast.success('上传成功');
+                this.file = null
+                this.name = ''
+                this.type = ''
                 this.getList()
             }).catch(error => {
                 console.log(error);
@@ -134,6 +141,25 @@ export default {
                     this.loading = false
                     this.$toast.fail('网络出错')
                 }, 2000)
+            })
+        },
+        deleteFile(data, i) {
+            this.$dialog.confirm({
+                title: '提示',
+                message: `你确定要删除[${data.title}]文件吗`
+            }).then(() => {
+                axios.get('file/delete', {
+                    _id: data._id,
+                    _path: data.path
+                }).then(res => {
+                    console.log(res)
+                    this.$toast.success('删除成功');
+                    this.list.splice(i, 1);
+                }).catch((error) => {
+                    console.log(error);
+                })
+            }).catch(() => {
+                // on cancel
             })
         }
     },

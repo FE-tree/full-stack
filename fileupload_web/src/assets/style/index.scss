@@ -22,7 +22,8 @@ $color: #5fbae9;
                     border: 1px solid #666;
                     display: inline-block;
                     position: relative;
-                    &::after, &::before {
+                    &::after,
+                    &::before {
                         content: '';
                         width: 70px;
                         height: 2px;
@@ -107,7 +108,35 @@ $color: #5fbae9;
             .active {
                 border: 1px solid $color;
                 background-color: $color;
-                color: #fff; 
+                color: #fff;
+            }
+        }
+        .delete {
+            width: 20px;
+            height: 20px;
+            background-color: lightgray;
+            display: inline-block;
+            border-radius: 100%;
+            position: absolute;
+            &::after,
+            &::before {
+                content: '';
+                width: 14px;
+                height: 1px;
+                background-color: #333;
+                position: absolute;
+                left: 3px;
+                top: 10px;
+                transform: rotate(45deg);
+            }
+            &::before {
+                transform: rotate(135deg);
+            }
+            &:active {
+                opacity: .8;
+            }
+            input {
+                display: none;
             }
         }
         .list {
@@ -117,8 +146,13 @@ $color: #5fbae9;
                 border-bottom: 1px solid #eee;
                 word-break: break-all;
                 transition: all .3s;
+                position: relative;
                 p {
                     margin: 5px 0;
+                }
+                .delete {
+                    top: 12px;
+                    right: 10px;
                 }
             }
             &-active {
@@ -137,11 +171,15 @@ $color: #5fbae9;
                     margin-top: 1rem;
                     .pic {
                         width: 80%;
-                        height: 20vw;
-                        // background-color: #999;
-                        background: linear-gradient(to right bottom,#ccc,#09f);
+                        height: 20vw; // background-color: #999;
+                        background: linear-gradient(to right bottom, #ccc, #09f);
                         margin: 0 auto;
                         border-radius: 5px;
+                        position: relative;
+                        .delete {
+                            top: -6px;
+                            right: -6px;
+                        }
                     }
                     p {
                         margin: 5px 0;
