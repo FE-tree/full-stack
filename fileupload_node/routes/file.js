@@ -53,7 +53,7 @@ function setPath(local) {
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        // cb(null, `${localPath.replace('../', '')}${relativePath}`)
+        // cb(null, `${realPath.replace('../', '')}`)
         cb(null, path.join(__dirname, realPath))
     },
     filename: function(req, file, cb) {
@@ -63,18 +63,19 @@ var storage = multer.diskStorage({
 })
 var upload = multer({ storage: storage })
 
-
 router.post('/upload', upload.single('file'), async (ctx, next) => {
     // console.log(ctx, ctx.request.req, ctx.request.req.file)
     const file = ctx.request.req.file;
     console.log(file)
-    const reader = fs.createReadStream(file.path);
-    let filePath = path.join(__dirname, realPath) + file.filename;
-    const upStream = fs.createWriteStream(filePath);
-    reader.pipe(upStream);
+    // const reader = fs.createReadStream(file.path);
+    // let filePath = path.join(__dirname, realPath) + `${file.filename}`;
+    // console.log(filePath)
+    // const upStream = fs.createWriteStream(filePath);
+    // reader.pipe(upStream);
 
     const info = ctx.request.req.body; // formData 附带信息
     console.log(info)
+    // 添加文件信息
     await db.file.create({
         title: info.title,
         filename: file.originalname,
@@ -89,9 +90,9 @@ router.post('/upload', upload.single('file'), async (ctx, next) => {
     }).catch(err => {
         ctx.body = err
     });
-    // return ctx.body = "上传成功！";
 });
 
+// 添加文件信息（test interface）
 router.get('/add', async (ctx, next) => {
     await db.file.create({title:'title',filename:"filename",type:"pdf",path:"public/uploads/filename"}).then(res => {
         ctx.body = res
@@ -100,6 +101,7 @@ router.get('/add', async (ctx, next) => {
     });
 })
 
+// 查询文件列表（目前全部）
 router.get('/find', async (ctx, next) => {
     // console.log(ctx.request.query)
     await db.file.find({})
@@ -116,6 +118,33 @@ router.get('/find', async (ctx, next) => {
         .catch(err => {
             ctx.body = err
         });
+})
+
+// 添加文件及文件信息
+router.get('/delete', async (ctx, next) => {
+    // console.log(ctx.request.query)
+    let { _id, _path } = ctx.request.query
+    // 删除数据库数据
+    await db.file.deleteOne({ _id }).then(res => {
+        // 删除服务器文件
+        fs.unlink(path.join(__dirname, _path), (error) => {
+            if(error) {
+                console.log('文件删除报错：', error);
+                return false;
+            }
+            console.log('删除文件成功');
+        })
+        ctx.body = {
+            code: 200,
+            description: '成功',
+            results: res
+        }
+    }).catch(err => {
+        ctx.body = {
+            code: 400,
+            description: err
+        }
+    });
 })
 
 module.exports = router
